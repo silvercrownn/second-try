@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Anuj Adhikari | Portfolio</title>
+  <link rel="stylesheet" href="potfolio-style.css">
+</head>
+<body>
+  <header>
+    <h1>Anuj Adhikari</h1>
+    <p>BICTE student — web development · coding · problem solving</p>
+  </header>
+
+  <!-- Theme toggle -->
+  <button id="theme-toggle" class="theme-toggle-btn" aria-pressed="false" aria-label="Toggle light/dark theme" title="Toggle theme">
+    <span class="toggle-icon">🌙</span>
+  </button>
+
+  <!-- Scroll to top -->
+  <button class="btn scroll-top-btn fixed-scroll-top" aria-label="Scroll to Top" title="Scroll to Top">⬆️</button>
+
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+        Hi! This is <span class="highlight-name">Anuj Adhikari</span> and I am a BICTE student passionate about
+        <span class="highlight-skill">web development</span>, <span class="highlight-skill">coding</span>, and
+        <span class="highlight-skill">problem solving</span>.
+      </p>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills-container">
+        <div class="skill">
+          <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" cx="60" cy="60" r="50" style="stroke-dasharray:314; stroke-dashoffset:62.8;" />
+            <text x="60" y="65" class="ring-text">80%</text>
+          </svg>
+          <p>C</p>
+        </div>
+
+        <div class="skill">
+          <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" cx="60" cy="60" r="50" style="stroke-dasharray:314; stroke-dashoffset:197.82;" />
+            <text x="60" y="65" class="ring-text">37%</text>
+          </svg>
+          <p>Python</p>
+        </div>
+
+        <div class="skill">
+          <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" cx="60" cy="60" r="50" style="stroke-dasharray:314; stroke-dashoffset:125.6;" />
+            <text x="60" y="65" class="ring-text">60%</text>
+          </svg>
+          <p>Linux</p>
+        </div>
+
+        <div class="skill">
+          <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" cx="60" cy="60" r="50" style="stroke-dasharray:314; stroke-dashoffset:157;" />
+            <text x="60" y="65" class="ring-text">50%</text>
+          </svg>
+          <p>HTML/CSS</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="project">
+        <h3>Simple Calculator (C)</h3>
+        <p>A basic calculator project using C language.</p>
+        <a href="calculator.c" target="_blank" rel="noopener">View Code</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <div class="contact-links">
+        <a href="mailto:anuj@email.com" class="email-link" aria-label="Email">
+          <img src="https://img.icons8.com/ios-filled/30/00d9ff/new-post.png" alt="Email icon" class="email-icon">
+        </a>
+        <a href="https://www.facebook.com/anuj.adhikari.121" target="_blank" rel="noopener" class="facebook-link" aria-label="Facebook profile">
+          <img src="https://img.icons8.com/ios-filled/24/1877F2/facebook-new.png" alt="Facebook icon" class="fb-icon">
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Anuj Adhikari</p>
+  </footer>
+
+<script>
+/* Scroll-to-top */
+(function(){
+  const scrollBtn = document.querySelector('.scroll-top-btn');
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    // show/hide on scroll
+    const showAt = 200;
+    function toggle() {
+      if (window.scrollY > showAt) scrollBtn.style.opacity = '1';
+      else scrollBtn.style.opacity = '0';
+    }
+    toggle();
+    window.addEventListener('scroll', toggle);
+  }
+})();
+
+/* Theme toggle with animation + persistence */
+(function(){
+  const btn = document.getElementById('theme-toggle');
+  const icon = btn && btn.querySelector('.toggle-icon');
+
+  if (!btn) return;
+
+  const stored = localStorage.getItem('site-theme'); // 'light' or 'dark'
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  const initial = stored || (prefersLight ? 'light' : 'dark');
+
+  if (initial === 'light') document.body.classList.add('light-mode');
+
+  function update() {
+    const isLight = document.body.classList.contains('light-mode');
+    if (icon) icon.textContent = isLight ? '☀️' : '🌙';
+    btn.setAttribute('aria-pressed', String(isLight));
+    btn.classList.add('btn-anim');
+    setTimeout(() => btn.classList.remove('btn-anim'), 300);
+  }
+
+  btn.addEventListener('click', () => {
+    const nowLight = document.body.classList.toggle('light-mode');
+    localStorage.setItem('site-theme', nowLight ? 'light' : 'dark');
+    update();
+  });
+
+  // update on system preference change
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      const saved = localStorage.getItem('site-theme');
+      if (!saved) {
+        if (e.matches) document.body.classList.add('light-mode');
+        else document.body.classList.remove('light-mode');
+        update();
+      }
+    });
+  }
+
+  update();
+})();
+</script>
+</body>
+</html>
