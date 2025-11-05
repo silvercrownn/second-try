@@ -78,7 +78,7 @@ a:hover { text-decoration: underline; }
 .ring-bg, .ring-fill { fill:none; stroke-width:10; }
 .ring-bg { stroke: rgba(255,255,255,0.06); }
 .ring-fill { stroke: var(--accent); transition: stroke-dashoffset 1s ease-out, stroke 300ms; transform-origin: 60px 60px; }
-.ring-text { fill: var(--text); font-size:18px; text-anchor:middle; dominant-baseline:middle; transform: rotate(90deg); transform-origin: 60px 60px; }
+.ring-text { fill: var(--text); font-size:18px; text-anchor:middle; dominant-baseline:middle; transform: none; transform-origin: 60px 60px; }
 
 /* Contact */
 #contact { text-align:center; }
