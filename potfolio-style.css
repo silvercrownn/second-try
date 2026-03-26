@@ -124,7 +124,7 @@ a:hover { text-decoration: underline; }
 .ring-text { fill: var(--text); font-size:18px; text-anchor:middle; dominant-baseline:middle; transform: none; transform-origin: 60px 60px; }
 
 body.light-mode .ring-bg { stroke: rgba(100, 116, 139, 0.54); }
-body.light-mode .ring-fill { stroke: #0ea5e9; }
+body.light-mode .ring-fill { stroke: #00ffd5; }
 body.light-mode .ring-text { fill: var(--text); }
 
 body.light-mode .fixed-scroll-top {
@@ -135,7 +135,7 @@ body.light-mode .fixed-scroll-top {
 }
 
 .ring-bg { stroke: rgba(148, 163, 184, 0.5); }
-.ring-fill { stroke: #38bdf8; }
+.ring-fill { stroke: #00ffd5; }
 
 .calculator input { background: var(--surface); border: 1px solid rgba(0,0,0,0.14); color: var(--text); }
 body.light-mode .calculator input { background: #fff; border: 1px solid rgba(0,0,0,0.24); color: var(--text); }
