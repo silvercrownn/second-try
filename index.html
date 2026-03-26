@@ -18,7 +18,9 @@
   </button>
 
   <!-- Scroll to top -->
-  <button class="btn scroll-top-btn fixed-scroll-top" aria-label="Scroll to Top" title="Scroll to Top">⬆️</button>
+  <button class="btn scroll-top-btn fixed-scroll-top" aria-label="Scroll to Top" title="Scroll to Top">
+    <span class="scroll-top-icon" aria-hidden="true">⌃</span>
+  </button>
 
   <main>
     <section id="about">
@@ -74,19 +76,43 @@
     <section id="projects">
       <h2>Projects</h2>
       <div class="project">
-        <h3>Simple Calculator (C)</h3>
-        <p>A basic calculator project using C language.</p>
-        <a href="calculator.c" target="_blank" rel="noopener">View Code</a>
+        <h3>Simple Calculator</h3>
+        <div class="calculator" aria-label="Simple calculator">
+          <input id="calc-display" type="text" inputmode="decimal" readonly aria-label="Calculator display">
+          <div class="calc-grid">
+            <button class="calc-btn" type="button" data-value="7">7</button>
+            <button class="calc-btn" type="button" data-value="8">8</button>
+            <button class="calc-btn" type="button" data-value="9">9</button>
+            <button class="calc-btn operator" type="button" data-value="/">÷</button>
+
+            <button class="calc-btn" type="button" data-value="4">4</button>
+            <button class="calc-btn" type="button" data-value="5">5</button>
+            <button class="calc-btn" type="button" data-value="6">6</button>
+            <button class="calc-btn operator" type="button" data-value="*">×</button>
+
+            <button class="calc-btn" type="button" data-value="1">1</button>
+            <button class="calc-btn" type="button" data-value="2">2</button>
+            <button class="calc-btn" type="button" data-value="3">3</button>
+            <button class="calc-btn operator" type="button" data-value="-">−</button>
+
+            <button class="calc-btn" type="button" data-value=".">.</button>
+            <button class="calc-btn" type="button" data-value="0">0</button>
+            <button class="calc-btn clear" type="button" data-value="C">Clear</button>
+            <button class="calc-btn operator" type="button" data-value="+">+</button>
+
+            <button class="calc-btn equal" type="button" data-value="=">=</button>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="contact">
       <h2>Contact Me</h2>
       <div class="contact-links">
-        <a href="mailto:anujadhikari828@email.com" class="email-link" aria-label="Email">
+        <a href="mailto:anujadhikari828@email.com" class="email-link" aria-label="Email" data-tooltip="Email">
           <img src="https://img.icons8.com/ios-filled/30/00d9ff/new-post.png" alt="Email icon" class="email-icon">
         </a>
-        <a href="https://www.facebook.com/anuj.adhikari.121" target="_blank" rel="noopener" class="facebook-link" aria-label="Facebook profile">
+        <a href="https://www.facebook.com/anuj.adhikari.121" target="_blank" rel="noopener" class="facebook-link" aria-label="Facebook profile" data-tooltip="Facebook">
           <img src="https://img.icons8.com/ios-filled/24/1877F2/facebook-new.png" alt="Facebook icon" class="fb-icon">
         </a>
       </div>
@@ -154,6 +180,69 @@
   }
 
   update();
+})();
+
+// Inline calculator behavior
+(function(){
+  const display = document.getElementById('calc-display');
+  const buttons = document.querySelectorAll('.calc-btn');
+  if (!display || buttons.length === 0) return;
+
+  function clearDisplay() {
+    display.value = '';
+  }
+
+  function calculate() {
+    let formula = display.value.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+    try {
+      const result = new Function('return ' + formula)();
+      display.value = String(result);
+    } catch (err) {
+      display.value = 'Error';
+    }
+  }
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const value = button.getAttribute('data-value');
+      if (value === 'C') {
+        clearDisplay();
+        return;
+      }
+      if (value === '=') {
+        calculate();
+        return;
+      }
+      if (display.value === 'Error') {
+        display.value = '';
+      }
+      display.value += value;
+    });
+  });
+})();
+
+// Skill ring animation on page load
+(function(){
+  const skills = document.querySelectorAll('.skill');
+  if (skills.length === 0) return;
+
+  skills.forEach((skill) => {
+    const circle = skill.querySelector('.ring-fill');
+    const label = skill.querySelector('.ring-text');
+    if (!circle || !label) return;
+
+    const percent = Number(label.textContent.replace('%', '').trim());
+    const radius = Number(circle.getAttribute('r')) || 50;
+    const circumference = 2 * Math.PI * radius;
+
+    circle.style.strokeDasharray = circumference;
+    circle.style.strokeDashoffset = -circumference;
+    circle.style.transition = 'stroke-dashoffset 1.8s cubic-bezier(0.22, 1, 0.36, 1)';
+
+    setTimeout(() => {
+      circle.style.strokeDashoffset = -circumference * (1 - Math.min(Math.max(percent, 0), 100) / 100);
+    }, 200);
+  });
 })();
 </script>
 </body>
